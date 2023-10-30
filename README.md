@@ -4,4 +4,4 @@
 
 ## Goal
 
-Develop a class CancelablePromise that behaves similarly to the native Promise class in JavaScript but can cancel the entire promise chain from execution.
+Develop a class CancelablePromise that behaves similarly to the native Promise class in JavaScript but with the capability to cancel the entire promise chain before execution.
