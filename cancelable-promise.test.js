@@ -143,6 +143,7 @@ describe('CancelablePromise test', () => {
       expect(p1.isCanceled).toBeTruthy()
       expect(p2.isCanceled).toBeTruthy()
       expect(p3.isCanceled).toBeTruthy()
+      await expect(p1).rejects.toEqual({ isCanceled: true })
     })
   })
 })
