@@ -126,7 +126,7 @@ describe('CancelablePromise test', () => {
   })
 
   describe('#isCanceled', () => {
-    test('should change state on cancel()', () => {
+    test('should change state on cancel()', async () => {
       const p1 = new CancelablePromise(resolve => resolve(1))
       const p2 = p1.then(() => 2)
       const p3 = p1.then(() => 3)
