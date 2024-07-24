@@ -10,12 +10,16 @@ class CancelablePromise {
       this._resolve = (value) => {
         if (!this._isCanceled) {
           resolve(value)
+        } else {
+          reject({ isCanceled: this._isCanceled })
         }
       }
 
       this._reject = (reason) => {
         if (!this._isCanceled) {
           reject(reason)
+        } else {
+          reject({ isCanceled: this._isCanceled })
         }
       }
 
