@@ -1,4 +1,4 @@
-// v4
+// v5
 // Develop a class CancelablePromise that behaves similarly to the native Promise class in JavaScript
 // but can cancel the entire promise chain from execution.
 
@@ -27,7 +27,7 @@ describe('CancelablePromise test', () => {
 
   test('rejecting', async () => {
     const unique = Symbol()
-    const promise = new CancelablePromise((resolve, reject) => setTimeout(() => reject(unique)))
+    const promise = new CancelablePromise((_resolve, reject) => setTimeout(() => reject(unique)))
     await expect(promise).rejects.toBe(unique)
   })
 
@@ -59,7 +59,7 @@ describe('CancelablePromise test', () => {
       const multiplier = 2
       const func = value => value * multiplier
 
-      const cp = new CancelablePromise((resolve, reject) => reject(initValue))
+      const cp = new CancelablePromise((_resolve, reject) => reject(initValue))
       const cp2 = cp.then(value => value, func)
 
       expect(cp).not.toBe(cp2)
@@ -101,8 +101,8 @@ describe('CancelablePromise test', () => {
 
       setTimeout(() => p2.cancel())
 
-      await expect(p1).rejects.toEqual({ isCanceled: true })
       await expect(p2).rejects.toEqual({ isCanceled: true })
+      await expect(p1).rejects.toEqual({ isCanceled: true })
       await expect(p3).rejects.toEqual({ isCanceled: true })
       expect(value).toBe(0)
     })
@@ -118,8 +118,8 @@ describe('CancelablePromise test', () => {
 
       p2.cancel()
 
-      await expect(p1).rejects.toEqual({ isCanceled: true })
       await expect(p2).rejects.toEqual({ isCanceled: true })
+      await expect(p1).rejects.toEqual({ isCanceled: true })
       await expect(p3).rejects.toEqual({ isCanceled: true })
       expect(value).toBe(0)
     })
@@ -140,8 +140,8 @@ describe('CancelablePromise test', () => {
 
       p2.cancel()
 
-      expect(p1.isCanceled).toBeTruthy()
       expect(p2.isCanceled).toBeTruthy()
+      expect(p1.isCanceled).toBeTruthy()
       expect(p3.isCanceled).toBeTruthy()
       await expect(p1).rejects.toEqual({ isCanceled: true })
     })
